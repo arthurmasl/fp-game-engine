@@ -1,19 +1,17 @@
 import { draw } from './draw';
 import {
   moveMouse, pressKey, pressMouse,
-} from '../player/events';
+} from '../common/events';
 import { initialState, nextState } from './state';
 
 export const init = () => {
   const canvas = document.getElementById('canvas');
   const ctx = canvas.getContext('2d');
+  const dev = document.querySelector('#dev');
+  let state = initialState(canvas, ctx);
 
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
-
-  let state = initialState(canvas, ctx);
-
-  const dev = document.querySelector('#dev');
 
   dev.addEventListener('change', (e) => {
     state[e.target.id] = !state[e.target.id];

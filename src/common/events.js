@@ -1,6 +1,6 @@
 import {
   setAcc, getDirection, removeKey, addKey,
-} from '../common/common';
+} from './common';
 
 export const moveMouse = (state, direction) => ({
   ...state,

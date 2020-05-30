@@ -32,7 +32,6 @@ export const getPos = (obj) => ({
   y: obj.pos.y + obj.vel.y,
 });
 
-
 export const getDirection = (direction) =>
   Math.atan2(
     -(window.innerHeight / 2 - direction.y),
