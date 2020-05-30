@@ -1,7 +1,8 @@
-import { setAcc } from './common';
+import { setDirection, pressKey } from './controls';
 import {
-  initialState, nextState, addKey, removeKey, setDirection,
-} from './game';
+  initialState, nextState,
+} from './state';
+
 
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
@@ -61,11 +62,11 @@ const step = (t1) => (t2) => {
 };
 
 document.addEventListener('keydown', (e) => {
-  state = setAcc(addKey(state, e.key));
+  state = pressKey(e, state);
 });
 
 document.addEventListener('keyup', (e) => {
-  state = setAcc(removeKey(state, e.key));
+  state = pressKey(e, state);
 });
 
 document.addEventListener('mousemove', ({ x, y }) => {
