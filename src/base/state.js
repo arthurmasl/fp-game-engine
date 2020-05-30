@@ -1,4 +1,5 @@
 import { collide } from '../common/collide';
+import { nextPlayer } from '../player/player';
 
 const createObjects = () =>
   [...Array(20).keys()].map(() => ({
@@ -21,6 +22,7 @@ const createPlayer = () => ({
 export const initialState = (canvas, ctx) => ({
   canvas,
   ctx,
+  collide: true,
   keys: [],
   objects: createObjects(),
   player: createPlayer(),
@@ -28,5 +30,5 @@ export const initialState = (canvas, ctx) => ({
 
 export const nextState = (state) => ({
   ...state,
-  player: collide(state),
+  player: state.collide ? collide(state) : nextPlayer(state.player),
 });
