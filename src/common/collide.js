@@ -11,7 +11,7 @@ const moveByDir = (player, dir) => ({
   pos: { ...player.pos, [dir]: player.pos[dir] + player.acc[dir] },
 });
 
-const collideGroup = (group, obj) =>
+export const collideGroup = (group, obj) =>
   group.map((gi) => isCollide(obj, gi)).some((i) => i);
 
 const isCollideX = (objects, player) => collideGroup(objects, nextPlayer(moveByDir(player, 'x')));

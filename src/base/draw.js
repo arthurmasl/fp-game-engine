@@ -34,9 +34,9 @@ const drawPlayer = ({ ctx, player, debug }) => {
 };
 
 const drawBullets = ({ ctx, bullets }) => {
-  bullets.forEach(({ pos }) => {
-    ctx.fillStyle = '#333';
-    ctx.fillRect(pos.x, pos.y, 10, 10);
+  bullets.forEach(({ pos, size }) => {
+    ctx.fillStyle = '#0f77aa';
+    ctx.fillRect(pos.x, pos.y, size, size);
   });
 };
 
@@ -49,8 +49,9 @@ export const draw = (state) => {
     state.ctx.translate(-state.player.pos.x, -state.player.pos.y);
   }
 
-  drawPlayer(state);
-  drawObjects(state);
   drawBullets(state);
+  drawPlayer(state);
+
+  drawObjects(state);
   state.ctx.restore();
 };

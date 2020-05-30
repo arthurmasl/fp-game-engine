@@ -3,11 +3,11 @@ import { nextPlayer } from '../player/player';
 import { nextBullets, addBullet } from '../player/bullets';
 
 const createObjects = () =>
-  [...Array(20).keys()].map(() => ({
+  [...Array(100).keys()].map(() => ({
     size: 100,
     pos: {
-      x: Math.floor(Math.random() * window.innerWidth),
-      y: Math.floor(Math.random() * window.innerHeight),
+      x: Math.floor(Math.random() * window.innerWidth * 3),
+      y: Math.floor(Math.random() * window.innerHeight * 3),
     },
   }));
 
@@ -37,6 +37,6 @@ export const nextState = (state) => ({
   ...state,
   player: state.collide ? collide(state) : nextPlayer(state.player),
   bullets: state.mouse.pressed
-    ? nextBullets(addBullet(state), state.player)
-    : nextBullets(state.bullets, state.player),
+    ? nextBullets(addBullet(state), state)
+    : nextBullets(state.bullets, state),
 });
