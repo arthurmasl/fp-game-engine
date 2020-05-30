@@ -1,5 +1,6 @@
 import { collide } from '../common/collide';
 import { nextPlayer } from '../player/player';
+import { nextBullets, addBullet } from '../player/bullets';
 
 const createObjects = () =>
   [...Array(20).keys()].map(() => ({
@@ -25,12 +26,17 @@ export const initialState = (canvas, ctx) => ({
   debug: false,
   camera: true,
   collide: true,
+  mouse: { x: 0, y: 0, pressed: false },
   keys: [],
   objects: createObjects(),
   player: createPlayer(),
+  bullets: [],
 });
 
 export const nextState = (state) => ({
   ...state,
   player: state.collide ? collide(state) : nextPlayer(state.player),
+  bullets: state.mouse.pressed
+    ? nextBullets(addBullet(state), state.player)
+    : nextBullets(state.bullets, state.player),
 });

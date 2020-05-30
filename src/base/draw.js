@@ -16,7 +16,6 @@ const drawObjects = ({ ctx, objects, debug }) =>
     if (debug) drawDebug(ctx, pos, size);
   });
 
-
 const drawPlayer = ({ ctx, player, debug }) => {
   const { pos, size, direction } = player;
   const cx = pos.x + size / 2;
@@ -34,6 +33,13 @@ const drawPlayer = ({ ctx, player, debug }) => {
   if (debug) drawDebug(ctx, pos, size);
 };
 
+const drawBullets = ({ ctx, bullets }) => {
+  bullets.forEach(({ pos }) => {
+    ctx.fillStyle = '#333';
+    ctx.fillRect(pos.x, pos.y, 10, 10);
+  });
+};
+
 export const draw = (state) => {
   state.ctx.save();
   drawStage(state);
@@ -45,5 +51,6 @@ export const draw = (state) => {
 
   drawPlayer(state);
   drawObjects(state);
+  drawBullets(state);
   state.ctx.restore();
 };

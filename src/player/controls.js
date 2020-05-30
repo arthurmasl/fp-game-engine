@@ -1,3 +1,5 @@
+import { getAcc, getDirection } from '../common/common';
+
 const addKey = (state, key) => ({
   ...state,
   keys: !state.keys.includes(key) ? [...state.keys, key] : state.keys,
@@ -8,21 +10,6 @@ const removeKey = (state, key) => ({
   keys: state.keys.filter((k) => k !== key),
 });
 
-const getDirection = (direction) =>
-  Math.atan2(
-    window.innerHeight / 2 - direction.y,
-    window.innerWidth / 2 - direction.x,
-  );
-
-const getAcc = (keys) =>
-  keys.reduce(
-    (acc, key) => ({
-      x: key === 'a' ? -1 : key === 'd' ? 1 : acc.x,
-      y: key === 'w' ? -1 : key === 's' ? 1 : acc.y,
-    }),
-    { x: 0, y: 0 },
-  );
-
 const setAcc = (state) => ({
   ...state,
   player: { ...state.player, acc: getAcc(state.keys) },
@@ -31,7 +18,17 @@ const setAcc = (state) => ({
 export const setDirection = (state, direction) => ({
   ...state,
   player: { ...state.player, direction: getDirection(direction) },
+  mouse: {
+    ...state.mouse,
+    x: direction.x,
+    y: direction.y,
+  },
 });
 
 export const pressKey = ({ type, key }, state) =>
   setAcc(type === 'keydown' ? addKey(state, key) : removeKey(state, key));
+
+export const pressMouse = ({ type }, state) => ({
+  ...state,
+  mouse: { ...state.mouse, pressed: type === 'mousedown' },
+});

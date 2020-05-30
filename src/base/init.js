@@ -1,5 +1,7 @@
 import { draw } from './draw';
-import { setDirection, pressKey } from '../player/controls';
+import {
+  setDirection, pressKey, shoot, pressMouse,
+} from '../player/controls';
 import { initialState, nextState } from './state';
 
 export const init = () => {
@@ -29,10 +31,19 @@ export const init = () => {
     state = setDirection(state, { x, y });
   });
 
+  document.addEventListener('mousedown', (e) => {
+    state = pressMouse(e, state);
+  });
+
+  document.addEventListener('mouseup', (e) => {
+    state = pressMouse(e, state);
+  });
+
   const step = (t1) => (t2) => {
     if (t2 - t1 > 1000 / 60) {
       state = nextState(state);
       draw(state);
+
       window.requestAnimationFrame(step(t2));
     } else {
       window.requestAnimationFrame(step(t1));
