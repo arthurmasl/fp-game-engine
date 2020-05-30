@@ -1,6 +1,6 @@
 import { collide } from '../common/collide';
 import { nextPlayer } from '../player/player';
-import { nextBullets, addBullet } from '../player/bullets';
+import { nextBullets, addBullet } from '../common/bullets';
 
 const createObjects = () =>
   [...Array(100).keys()].map(() => ({
@@ -37,6 +37,6 @@ export const nextState = (state) => ({
   ...state,
   player: state.collide ? collide(state) : nextPlayer(state.player),
   bullets: state.mouse.pressed
-    ? nextBullets(addBullet(state), state)
-    : nextBullets(state.bullets, state),
+    ? nextBullets(addBullet(state))
+    : nextBullets(state),
 });
