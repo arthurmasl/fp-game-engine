@@ -14,15 +14,13 @@ const moveByDir = (player, dir) => ({
 const collideGroup = (group, obj) =>
   group.map((gi) => isCollide(obj, gi)).some((i) => i);
 
-export const collide = ({ objects, player }) => {
-  const isCollideX = collideGroup(objects, nextPlayer(moveByDir(player, 'x')));
-  const isCollideY = collideGroup(objects, nextPlayer(moveByDir(player, 'y')));
+const isCollideX = (objects, player) => collideGroup(objects, nextPlayer(moveByDir(player, 'x')));
+const isCollideY = (objects, player) => collideGroup(objects, nextPlayer(moveByDir(player, 'y')));
 
-  return nextPlayer({
-    ...player,
-    vel: {
-      x: isCollideX ? 0 : player.vel.x,
-      y: isCollideY ? 0 : player.vel.y,
-    },
-  });
-};
+export const collide = ({ objects, player }) => nextPlayer({
+  ...player,
+  vel: {
+    x: isCollideX(objects, player) ? 0 : player.vel.x,
+    y: isCollideY(objects, player) ? 0 : player.vel.y,
+  },
+});
