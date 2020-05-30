@@ -1,6 +1,6 @@
 import { createObjects, createPlayer } from './create';
 import {
-  getAcc, getDirection, getVel, collide, getPos,
+  getDirection, collide,
 } from './common';
 
 export const initialState = () => ({
@@ -9,16 +9,9 @@ export const initialState = () => ({
   player: createPlayer(),
 });
 
-const nextPlayer = ({ player, keys }) => ({
-  ...player,
-  vel: getVel(player),
-  acc: getAcc(keys),
-  pos: getPos(player),
-});
-
 export const nextState = (state) => ({
   ...state,
-  player: collide(state, nextPlayer(state)),
+  player: collide(state),
 });
 
 export const addKey = (state, key) => ({
@@ -33,5 +26,5 @@ export const removeKey = (state, key) => ({
 
 export const setDirection = (state, direction) => ({
   ...state,
-  player: { ...state.player, direction: getDirection(state.player, direction) },
+  player: { ...state.player, direction: getDirection(direction) },
 });

@@ -1,5 +1,5 @@
 export const createObjects = () =>
-  [...Array(10).keys()].map(() => ({
+  [...Array(20).keys()].map(() => ({
     size: 100,
     pos: {
       x: Math.floor(Math.random() * window.innerWidth),

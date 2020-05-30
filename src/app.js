@@ -1,3 +1,4 @@
+import { setAcc } from './common';
 import {
   initialState, nextState, addKey, removeKey, setDirection,
 } from './game';
@@ -60,11 +61,11 @@ const step = (t1) => (t2) => {
 };
 
 document.addEventListener('keydown', (e) => {
-  state = addKey(state, e.key);
+  state = setAcc(addKey(state, e.key));
 });
 
 document.addEventListener('keyup', (e) => {
-  state = removeKey(state, e.key);
+  state = setAcc(removeKey(state, e.key));
 });
 
 document.addEventListener('mousemove', ({ x, y }) => {
