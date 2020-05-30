@@ -1,9 +1,9 @@
 import { collide } from '../common/collide';
-import { nextPlayer } from '../player/player';
 import { nextBullets, addBullet } from '../common/bullets';
+import { nextPlayer } from '../common/player';
 
 const createObjects = () =>
-  [...Array(100).keys()].map(() => ({
+  [...Array(30).keys()].map(() => ({
     size: 100,
     pos: {
       x: Math.floor(Math.random() * window.innerWidth * 3),

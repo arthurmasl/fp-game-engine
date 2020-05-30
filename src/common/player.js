@@ -1,4 +1,4 @@
-import { getVel, getPos } from '../common/common';
+import { getVel, getPos } from './common';
 
 export const nextPlayer = (player) => ({
   ...player,

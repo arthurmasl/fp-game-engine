@@ -1,4 +1,4 @@
-import { nextPlayer } from '../player/player';
+import { nextPlayer } from './player';
 
 const isCollide = (obj1, obj2) =>
   obj1.pos.x < obj2.pos.x + obj2.size
