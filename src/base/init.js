@@ -1,7 +1,7 @@
 import { draw } from './draw';
 import {
-  setDirection, pressKey, shoot, pressMouse,
-} from '../player/controls';
+  moveMouse, pressKey, pressMouse,
+} from '../player/events';
 import { initialState, nextState } from './state';
 
 export const init = () => {
@@ -28,7 +28,7 @@ export const init = () => {
   });
 
   document.addEventListener('mousemove', ({ x, y }) => {
-    state = setDirection(state, { x, y });
+    state = moveMouse(state, { x, y });
   });
 
   document.addEventListener('mousedown', (e) => {
