@@ -6,4 +6,16 @@ body {
   align-items: center;
   background-color: #000;
   height: 100vh;
+  font-family: Arial;
+}
+
+#dev {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  user-select: none;
+}
+
+#dev input {
+  outline: none;
 }

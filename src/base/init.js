@@ -11,6 +11,12 @@ export const init = () => {
 
   let state = initialState(canvas, ctx);
 
+  const dev = document.querySelector('#dev');
+
+  dev.addEventListener('change', (e) => {
+    state[e.target.id] = !state[e.target.id];
+  });
+
   document.addEventListener('keydown', (e) => {
     state = pressKey(e, state);
   });

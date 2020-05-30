@@ -22,6 +22,8 @@ const createPlayer = () => ({
 export const initialState = (canvas, ctx) => ({
   canvas,
   ctx,
+  debug: false,
+  camera: true,
   collide: true,
   keys: [],
   objects: createObjects(),

@@ -9,7 +9,9 @@ const drawObjects = ({ ctx, objects }) =>
     ctx.fillRect(pos.x, pos.y, size, size);
   });
 
-const drawPlayer = ({ ctx, player }) => {
+const drawPlayer = ({
+  ctx, player, debug,
+}) => {
   const { pos, size, direction } = player;
   const cx = pos.x + size / 2;
   const cy = pos.y + size / 2;
@@ -22,14 +24,21 @@ const drawPlayer = ({ ctx, player }) => {
   ctx.fillStyle = '#333';
   ctx.fillRect(pos.x, pos.y, size, size);
   ctx.restore();
+
+  if (debug) {
+    ctx.strokeStyle = '#0f0';
+    ctx.strokeRect(pos.x, pos.y, size, size);
+  }
 };
 
 export const draw = (state) => {
+  state.ctx.save();
   drawStage(state);
 
-  state.ctx.save();
-  state.ctx.translate(state.canvas.width / 2, state.canvas.height / 2);
-  state.ctx.translate(-state.player.pos.x, -state.player.pos.y);
+  if (state.camera) {
+    state.ctx.translate(state.canvas.width / 2, state.canvas.height / 2);
+    state.ctx.translate(-state.player.pos.x, -state.player.pos.y);
+  }
 
   drawPlayer(state);
   drawObjects(state);
