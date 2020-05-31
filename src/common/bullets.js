@@ -1,13 +1,12 @@
 import { collideGroup } from './collide';
 import {
-  getVel,
-  getPos,
+  nextObject,
   getDirection,
   getDirectionVector,
   getDistance,
 } from './common';
 
-export const addBullet = (state) => ({
+export const createBullet = (state) => ({
   ...state,
   bullets:
   [
@@ -25,16 +24,16 @@ export const addBullet = (state) => ({
   ],
 });
 
-export const nextBullets = (state) =>
+const filterBullets = ({ objects, player }) => (bullet) =>
+  getDistance(bullet.pos, player.pos) < 1000
+  && !collideGroup(objects, bullet);
+
+const nextBullets = (state) =>
   state.bullets
-    .map((bullet) => ({
-      ...bullet,
-      pos: getPos(bullet),
-      vel: getVel(bullet),
-    }))
-    .filter(
-      (bullet) => (
-        getDistance(bullet.pos, state.player.pos) < 1000
-          && !collideGroup(state.objects, bullet)
-      ),
-    );
+    .filter(filterBullets(state))
+    .map(nextObject);
+
+export const updateBullets = (state) =>
+  state.mouse.pressed
+    ? nextBullets(createBullet(state))
+    : nextBullets(state);

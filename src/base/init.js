@@ -2,13 +2,13 @@ import { draw } from './draw';
 import {
   moveMouse, pressKey, pressMouse,
 } from '../common/events';
-import { initialState, nextState } from './state';
+import { createState, updateState } from './state';
 
 export const init = () => {
   const canvas = document.getElementById('canvas');
   const ctx = canvas.getContext('2d');
   const dev = document.querySelector('#dev');
-  let state = initialState(canvas, ctx);
+  let state = createState(canvas, ctx);
 
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
@@ -39,7 +39,7 @@ export const init = () => {
 
   const step = (t1) => (t2) => {
     if (t2 - t1 > 1000 / 60) {
-      state = nextState(state);
+      state = updateState(state);
       draw(state);
 
       window.requestAnimationFrame(step(t2));

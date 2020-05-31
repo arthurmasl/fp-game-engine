@@ -1,26 +1,8 @@
-import { collide } from '../common/collide';
-import { nextBullets, addBullet } from '../common/bullets';
-import { nextPlayer } from '../common/player';
+import { updateBullets } from '../common/bullets';
+import { createPlayer, updatePlayer } from '../common/player';
+import { createObjects } from '../common/objects';
 
-const createObjects = () =>
-  [...Array(30).keys()].map(() => ({
-    size: 100,
-    pos: {
-      x: Math.floor(Math.random() * window.innerWidth * 3),
-      y: Math.floor(Math.random() * window.innerHeight * 3),
-    },
-  }));
-
-const createPlayer = () => ({
-  size: 50,
-  speed: 1,
-  pos: { x: 500, y: 500 },
-  acc: { x: 0, y: 0 },
-  vel: { x: 0, y: 0 },
-  direction: 0,
-});
-
-export const initialState = (canvas, ctx) => ({
+export const createState = (canvas, ctx) => ({
   canvas,
   ctx,
   debug: false,
@@ -33,10 +15,8 @@ export const initialState = (canvas, ctx) => ({
   bullets: [],
 });
 
-export const nextState = (state) => ({
+export const updateState = (state) => ({
   ...state,
-  player: state.collide ? collide(state) : nextPlayer(state.player),
-  bullets: state.mouse.pressed
-    ? nextBullets(addBullet(state))
-    : nextBullets(state),
+  player: updatePlayer(state),
+  bullets: updateBullets(state),
 });

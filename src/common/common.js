@@ -7,6 +7,11 @@ export const getAcc = (keys) =>
     { x: 0, y: 0 },
   );
 
+export const setAcc = (state) => ({
+  ...state,
+  player: { ...state.player, acc: getAcc(state.keys) },
+});
+
 export const addKey = (state, key) => ({
   ...state,
   keys: !state.keys.includes(key) ? [...state.keys, key] : state.keys,
@@ -17,11 +22,6 @@ export const removeKey = (state, key) => ({
   keys: state.keys.filter((k) => k !== key),
 });
 
-export const setAcc = (state) => ({
-  ...state,
-  player: { ...state.player, acc: getAcc(state.keys) },
-});
-
 export const getVel = (obj) => ({
   x: obj.vel.x * 0.85 + obj.acc.x * obj.speed,
   y: obj.vel.y * 0.85 + obj.acc.y * obj.speed,
@@ -30,6 +30,12 @@ export const getVel = (obj) => ({
 export const getPos = (obj) => ({
   x: obj.pos.x + obj.vel.x,
   y: obj.pos.y + obj.vel.y,
+});
+
+export const nextObject = (object) => ({
+  ...object,
+  vel: getVel(object),
+  pos: getPos(object),
 });
 
 export const getDirection = (direction) =>

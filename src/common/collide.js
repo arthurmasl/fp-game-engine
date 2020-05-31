@@ -1,4 +1,4 @@
-import { nextPlayer } from './player';
+import { nextObject } from './common';
 
 const isCollide = (obj1, obj2) =>
   obj1.pos.x < obj2.pos.x + obj2.size
@@ -14,10 +14,10 @@ const moveByDir = (player, dir) => ({
 export const collideGroup = (group, obj) =>
   group.map((gi) => isCollide(obj, gi)).some((i) => i);
 
-const isCollideX = (objects, player) => collideGroup(objects, nextPlayer(moveByDir(player, 'x')));
-const isCollideY = (objects, player) => collideGroup(objects, nextPlayer(moveByDir(player, 'y')));
+const isCollideX = (objects, player) => collideGroup(objects, nextObject(moveByDir(player, 'x')));
+const isCollideY = (objects, player) => collideGroup(objects, nextObject(moveByDir(player, 'y')));
 
-export const collide = ({ objects, player }) => nextPlayer({
+export const collide = ({ objects, player }) => nextObject({
   ...player,
   vel: {
     x: isCollideX(objects, player) ? 0 : player.vel.x,
