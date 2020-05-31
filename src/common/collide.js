@@ -1,4 +1,5 @@
 import { nextObject } from './common';
+import { isTrue } from './helpers';
 
 const isCollide = (obj1, obj2) =>
   obj1.pos.x < obj2.pos.x + obj2.size
@@ -12,7 +13,9 @@ const moveByDir = (player, dir) => ({
 });
 
 export const collideGroup = (group, obj) =>
-  group.map((gi) => isCollide(obj, gi)).some((i) => i);
+  group
+    .map((gi) => isCollide(obj, gi))
+    .some(isTrue);
 
 const isCollideX = (objects, player) => collideGroup(objects, nextObject(moveByDir(player, 'x')));
 const isCollideY = (objects, player) => collideGroup(objects, nextObject(moveByDir(player, 'y')));
