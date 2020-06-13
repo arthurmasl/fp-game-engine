@@ -8,8 +8,7 @@ import {
 
 export const createBullet = (state) => ({
   ...state,
-  bullets:
-  [
+  bullets: [
     ...state.bullets,
     {
       speed: 2,
@@ -25,15 +24,10 @@ export const createBullet = (state) => ({
 });
 
 const filterBullets = ({ objects, player }) => (bullet) =>
-  getDistance(bullet.pos, player.pos) < 1000
-  && !collideGroup(objects, bullet);
+  getDistance(bullet.pos, player.pos) < 1000 && !collideGroup(objects, bullet);
 
 const nextBullets = (state) =>
-  state.bullets
-    .filter(filterBullets(state))
-    .map(nextObject);
+  state.bullets.filter(filterBullets(state)).map(nextObject);
 
 export const updateBullets = (state) =>
-  state.mouse.pressed
-    ? nextBullets(createBullet(state))
-    : nextBullets(state);
+  state.mouse.pressed ? nextBullets(createBullet(state)) : nextBullets(state);
